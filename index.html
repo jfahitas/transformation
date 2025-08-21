@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizational Transformation Coaching Toolkit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #260c0c;
+        }
+        .main-gradient-bg {
+            background: radial-gradient(circle at top, #500000 0%, #260c0c 50%);
+        }
+        .card-bg {
+            background-color: rgba(28, 10, 10, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .info-card {
+             background-color: rgba(41, 23, 23, 0.4);
+             border: 1px solid rgba(255, 255, 255, 0.15);
+             border-top: 2px solid #8a0f0f;
+             box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+        }
+        .interactive-card {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(255, 100, 100, 0.2), 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .toolkit-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .toolkit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #7c0a0a 0%, #991b1b 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .option-btn {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .option-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        .option-btn.selected {
+            background-color: rgba(74, 222, 128, 0.15);
+            border-color: rgba(74, 222, 128, 0.8);
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
+            transform: scale(1.02);
+        }
+        .feedback-modal-bg {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .feedback-correct { border-left: 4px solid #34d399; }
+        .feedback-incorrect { border-left: 4px solid #f87171; }
+        .prose-custom { color: #d1d5db; }
+        .prose-custom h3 { color: #f9fafb; font-size: 1.125rem; margin-bottom: 0.75rem; }
+        .prose-custom h4 { color: #e5e7eb; font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; border-bottom: 1px solid #4b5563; padding-bottom: 0.25rem;}
+        .prose-custom p { margin-bottom: 1rem; }
+        .prose-custom strong { color: #f3f4f6; }
+        .prose-custom ul { list-style: none; padding-left: 0; }
+        .prose-custom ul > li { position: relative; padding-left: 1.75rem; margin-bottom: 0.75rem; }
+        .prose-custom ul > li::before { content: '→'; position: absolute; left: 0; top: 2px; color: #991b1b; font-weight: 700; }
+        .tab-btn { background-color: rgba(255,255,255,0.1); border: 1px solid transparent; }
+        .tab-btn.active { background-color: #7c0a0a; color: white; border-color: rgba(255,255,255,0.3); }
+    </style>
+</head>
+<body class="text-slate-200">
+
+    <div id="app" class="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 main-gradient-bg">
+        
+        <!-- Toolkit Dashboard Screen -->
+        <div id="toolkit-screen" class="w-full max-w-5xl">
+            <h1 class="text-4xl sm:text-5xl font-bold text-white mb-2 text-center">Coaching Toolkit</h1>
+            <p class="text-lg sm:text-xl text-slate-300 mb-8 max-w-3xl mx-auto text-center">Select a scenario to practice your coaching skills or review key resources.</p>
+            <div id="scenario-cards" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Scenario cards will be injected here -->
+            </div>
+        </div>
+
+        <!-- Scenario Screen -->
+        <div id="scenario-screen" class="hidden w-full max-w-6xl">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="scenario-title" class="text-2xl sm:text-3xl font-bold text-white"></h2>
+                <button id="back-to-toolkit-btn" class="text-sm font-semibold text-slate-300 hover:text-white transition">← Back to Toolkit</button>
+            </div>
+            
+            <div class="flex border-b border-slate-700 mb-6">
+                <button id="tab-scenario" class="tab-btn active py-2 px-4 rounded-t-md">Interactive Scenario</button>
+                <button id="tab-resources" class="tab-btn py-2 px-4 rounded-t-md">Coaching Resources</button>
+            </div>
+
+            <!-- Interactive Scenario Content -->
+            <div id="interactive-content">
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8">
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="info-card rounded-xl p-6 prose prose-custom max-w-none">
+                            <h3>Organizational Challenge</h3>
+                            <div id="scenario-challenge"></div>
+                        </div>
+                        <div class="info-card rounded-xl p-6 prose prose-custom max-w-none">
+                            <h3>Coaching Focus</h3>
+                            <div id="scenario-focus"></div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-3">
+                        <div class="card-bg interactive-card rounded-xl p-6 sm:p-8 h-full flex flex-col">
+                            <div class="prose prose-custom max-w-none mb-6">
+                                <h3>Development Edge</h3>
+                                <div id="scenario-edge"></div>
+                            </div>
+                            <div class="border-t border-slate-700 my-6"></div>
+                            <div class="mt-auto">
+                                <div class="text-center p-3 mb-4 rounded-lg bg-green-500 bg-opacity-10 border border-green-500 border-opacity-30">
+                                    <p class="font-semibold text-green-300">Your turn: Choose the most effective coaching approach.</p>
+                                </div>
+                                <h3 class="text-xl font-semibold text-white mb-4">Coaching Decision</h3>
+                                <p id="decision-prompt" class="text-slate-300 mb-4"></p>
+                                <div id="options-container" class="space-y-3"></div>
+                                <button id="submit-btn" class="btn-primary w-full mt-6 text-white font-bold py-3 px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>Submit Approach</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coaching Resources Content -->
+            <div id="resources-content" class="hidden">
+                 <div class="card-bg rounded-xl p-6 sm:p-8 prose prose-custom max-w-none">
+                    <h3 class="text-2xl text-white">Toolkit: Resources for <span id="resources-title"></span></h3>
+                    <div id="resources-body"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Modal -->
+        <div id="feedback-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 feedback-modal-bg">
+            <div id="feedback-content" class="card-bg rounded-2xl p-6 sm:p-8 shadow-2xl w-full max-w-2xl transform transition-all duration-300 scale-95 opacity-0">
+                <h2 id="feedback-title" class="text-2xl font-bold mb-4"></h2>
+                <div id="feedback-text" class="text-slate-300 mb-6 prose prose-custom max-w-none"></div>
+                <button id="continue-btn" class="btn-primary w-full text-white font-bold py-3 px-6 rounded-lg">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scenarios = [
+            {
+                title: "Multi-Generational Leadership",
+                challenge: `<p>An emergency management organization with a wide age range is struggling with technology integration and knowledge transfer between generations.</p>`,
+                focus: `<p>Help leaders from different generations develop mutual understanding and collaborative approaches.</p>`,
+                edge: `<ul><li>Moving from generational frustration to intergenerational learning.</li></ul>`,
+                decisionPrompt: "To address this, which initial approach is most aligned with transformational coaching?",
+                options: [
+                    { text: "Facilitate a dialogue where leaders from different generations explore each other's perspectives on technology and knowledge.", isCorrect: true },
+                    { text: "Have senior leaders mentor junior staff on the 'right way' to handle institutional knowledge.", isCorrect: false }
+                ],
+                feedback: {
+                    correct: "<p><strong>Correct.</strong> This is a coaching approach. By facilitating a dialogue, you are not providing the answer but helping the leaders expand their own thinking and perspective-taking capacity. This builds a sustainable, collaborative culture rather than reinforcing a one-way transfer of knowledge.</p>",
+                    incorrect: "<p><strong>Not quite.</strong> This describes mentoring, not coaching. While mentoring has value, it focuses on knowledge transfer from an expert. The core challenge here is a lack of mutual understanding, which requires a coaching approach to help both groups expand their perspectives and co-create a solution.</p>"
+                },
+                resources: `
+                    <h4>Distinction: Mentoring vs. Coaching</h4>
+                    <p><strong>Mentoring</strong> is about sharing knowledge and experience (e.g., senior leader sharing wisdom). <strong>Coaching</strong> is about asking questions to expand the coachee's own thinking capacity.</p>
+                    <h4>Key Coaching Questions for this Scenario:</h4>
+                    <ul>
+                        <li>"What assumptions might we be making about how different generations prefer to work and learn?"</li>
+                        <li>"From their perspective, what might be the benefits of their preferred approach to technology/knowledge?"</li>
+                        <li>"What could we learn from each other's approaches that might create a better overall system?"</li>
+                    </ul>
+                `
+            },
+            {
+                title: "Crisis Leadership & Political Pressure",
+                challenge: `<p>Emergency management leaders are experiencing political interference that is affecting their operational decisions during a crisis.</p>`,
+                focus: `<p>Develop the organization's capacity to maintain professional standards while navigating complex political dynamics.</p>`,
+                edge: `<ul><li>Expanding from a purely operational focus to a political-operational integration.</li></ul>`,
+                decisionPrompt: "What is the most effective transformational coaching strategy for the leadership team?",
+                options: [
+                    { text: "Coach the team to explore the underlying system dynamics of the political pressure and develop adaptive strategies.", isCorrect: true },
+                    { text: "Provide performance coaching on specific communication techniques for speaking with politicians.", isCorrect: false }
+                ],
+                feedback: {
+                    correct: "<p><strong>Correct.</strong> This is a transformational coaching approach. It focuses on expanding the team's thinking capacity to see the larger system, understand the political dynamics as part of that system, and develop adaptive—not just scripted—responses. This builds long-term capability for navigating complexity.</p>",
+                    incorrect: "<p><strong>This is performance coaching, not transformational coaching.</strong> While improved communication skills are useful (horizontal development), this approach only addresses a symptom. It doesn't expand the leaders' fundamental ability to understand and navigate the complex political system itself, which is the core of the developmental need.</p>"
+                },
+                resources: `
+                    <h4>Distinction: Performance vs. Transformational Coaching</h4>
+                    <p><strong>Performance Coaching</strong> focuses on improving a specific skill (e.g., public speaking). <strong>Transformational Coaching</strong> focuses on expanding thinking capacity to navigate complexity (e.g., systems thinking).</p>
+                    <h4>Key Coaching Questions for this Scenario:</h4>
+                    <ul>
+                        <li>"What might this political pressure be telling us about the broader system we're operating in?"</li>
+                        <li>"Beyond the immediate issue, what are the competing values at play for the political leaders?"</li>
+                        <li>"How can we maintain our professional standards while also acknowledging and navigating the political realities as part of the system?"</li>
+                    </ul>
+                `
+            },
+            {
+                title: "Regional Coordination Culture",
+                challenge: `<p>Multiple agencies are struggling to move from prioritizing individual agency success to achieving effective regional coordination.</p>`,
+                focus: `<p>Build an organizational culture across the region that values collective success over individual agency recognition.</p>`,
+                edge: `<ul><li>Moving from a competitive to a collaborative mindset across different organizations.</li></ul>`,
+                decisionPrompt: "As a coach to the regional leadership group, what is the best initial step?",
+                options: [
+                    { text: "Mandate new regional coordination protocols and measure compliance.", isCorrect: false },
+                    { text: "Ask questions that help the leaders discover for themselves the systemic barriers and shared benefits of true collaboration.", isCorrect: true }
+                ],
+                feedback: {
+                    correct: "<p><strong>Correct.</strong> This is a coaching approach. It facilitates discovery and helps the leaders expand their own systems awareness. By helping them see the barriers and benefits themselves, you generate genuine buy-in and a shift in mindset, which is essential for lasting cultural change.</p>",
+                    incorrect: "<p><strong>This is a directive, not a coaching approach.</strong> Mandating protocols is a top-down, compliance-based solution that doesn't address the underlying competitive mindset. It may force behavioral change but is unlikely to create the deep, cultural shift towards genuine collaboration that transformational coaching aims to achieve.</p>"
+                },
+                resources: `
+                    <h4>Framework: HSD Adaptive Action Cycle</h4>
+                    <p>Use this cycle to structure coaching conversations around systemic change.</p>
+                    <ul>
+                        <li><strong>What?</strong> - "What patterns do we see in our current regional coordination efforts?"</li>
+                        <li><strong>So What?</strong> - "So what do these patterns tell us about our underlying assumptions and barriers to collaboration?"</li>
+                        <li><strong>Now What?</strong> - "Now what small, concrete experiment can we try to shift one of these patterns towards greater collaboration?"</li>
+                    </ul>
+                `
+            }
+        ];
+
+        let currentScenarioIndex = -1;
+
+        const toolkitScreen = document.getElementById('toolkit-screen');
+        const scenarioScreen = document.getElementById('scenario-screen');
+        const feedbackModal = document.getElementById('feedback-modal');
+        const backToToolkitBtn = document.getElementById('back-to-toolkit-btn');
+        const tabScenario = document.getElementById('tab-scenario');
+        const tabResources = document.getElementById('tab-resources');
+        const interactiveContent = document.getElementById('interactive-content');
+        const resourcesContent = document.getElementById('resources-content');
+
+        function init() {
+            renderToolkitDashboard();
+            backToToolkitBtn.addEventListener('click', showToolkitDashboard);
+            tabScenario.addEventListener('click', () => switchTab('scenario'));
+            tabResources.addEventListener('click', () => switchTab('resources'));
+        }
+
+        function renderToolkitDashboard() {
+            const container = document.getElementById('scenario-cards');
+            container.innerHTML = '';
+            scenarios.forEach((s, index) => {
+                const card = document.createElement('div');
+                card.className = 'card-bg toolkit-card rounded-xl p-6 cursor-pointer flex flex-col';
+                card.innerHTML = `
+                    <h3 class="text-xl font-bold text-white mb-2">${s.title}</h3>
+                    <p class="text-slate-400 text-sm flex-grow">${s.challenge}</p>
+                    <button class="btn-primary text-white font-bold py-2 px-4 rounded-lg mt-4 w-full">Start Scenario</button>
+                `;
+                card.addEventListener('click', () => loadScenario(index));
+                container.appendChild(card);
+            });
+        }
+
+        function showToolkitDashboard() {
+            scenarioScreen.classList.add('hidden');
+            toolkitScreen.classList.remove('hidden');
+            currentScenarioIndex = -1;
+        }
+
+        function loadScenario(index) {
+            currentScenarioIndex = index;
+            toolkitScreen.classList.add('hidden');
+            scenarioScreen.classList.remove('hidden');
+            
+            document.getElementById('submit-btn').disabled = true;
+            
+            const scenario = scenarios[index];
+            document.getElementById('scenario-title').textContent = scenario.title;
+            document.getElementById('scenario-challenge').innerHTML = scenario.challenge;
+            document.getElementById('scenario-focus').innerHTML = scenario.focus;
+            document.getElementById('scenario-edge').innerHTML = scenario.edge;
+            document.getElementById('decision-prompt').textContent = scenario.decisionPrompt;
+            
+            document.getElementById('resources-title').textContent = scenario.title;
+            document.getElementById('resources-body').innerHTML = scenario.resources;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            scenario.options.forEach((option, i) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn w-full text-left p-4 rounded-lg';
+                button.textContent = option.text;
+                button.dataset.index = i;
+                button.addEventListener('click', handleOptionSelect);
+                optionsContainer.appendChild(button);
+            });
+
+            switchTab('scenario'); // Default to scenario view
+        }
+
+        function handleOptionSelect(event) {
+            document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').addEventListener('click', handleSubmit, { once: true });
+        }
+
+        function handleSubmit() {
+            const selectedOptionIndex = document.querySelector('.option-btn.selected').dataset.index;
+            const scenario = scenarios[currentScenarioIndex];
+            const chosenOption = scenario.options[selectedOptionIndex];
+
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackText = document.getElementById('feedback-text');
+            const feedbackContent = document.getElementById('feedback-content');
+
+            if (chosenOption.isCorrect) {
+                feedbackTitle.textContent = "Effective Approach";
+                feedbackTitle.className = "text-2xl font-bold mb-4 text-green-400";
+                feedbackText.innerHTML = scenario.feedback.correct;
+                feedbackContent.className = 'card-bg feedback-correct rounded-2xl p-6 sm:p-8 shadow-2xl w-full max-w-2xl transform transition-all duration-300 scale-95 opacity-0';
+            } else {
+                feedbackTitle.textContent = "Less Effective Approach";
+                feedbackTitle.className = "text-2xl font-bold mb-4 text-red-400";
+                feedbackText.innerHTML = scenario.feedback.incorrect;
+                feedbackContent.className = 'card-bg feedback-incorrect rounded-2xl p-6 sm:p-8 shadow-2xl w-full max-w-2xl transform transition-all duration-300 scale-95 opacity-0';
+            }
+
+            feedbackModal.classList.remove('hidden');
+            setTimeout(() => {
+                feedbackContent.classList.remove('scale-95', 'opacity-0');
+                feedbackContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            
+            document.getElementById('continue-btn').addEventListener('click', handleContinue, { once: true });
+        }
+        
+        function handleContinue() {
+            const feedbackContent = document.getElementById('feedback-content');
+            feedbackContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                feedbackModal.classList.add('hidden');
+                // After feedback, switch to the resources tab for review
+                switchTab('resources');
+            }, 300);
+        }
+
+        function switchTab(tabName) {
+            if (tabName === 'scenario') {
+                tabScenario.classList.add('active');
+                tabResources.classList.remove('active');
+                interactiveContent.classList.remove('hidden');
+                resourcesContent.classList.add('hidden');
+            } else {
+                tabScenario.classList.remove('active');
+                tabResources.classList.add('active');
+                interactiveContent.classList.add('hidden');
+                resourcesContent.classList.remove('hidden');
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
