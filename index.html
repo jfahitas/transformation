@@ -78,7 +78,14 @@
         .prose-custom strong { color: #f3f4f6; }
         .prose-custom ul { list-style: none; padding-left: 0; }
         .prose-custom ul > li { position: relative; padding-left: 1.75rem; margin-bottom: 0.75rem; }
-        .prose-custom ul > li::before { content: '→'; position: absolute; left: 0; top: 2px; color: #991b1b; font-weight: 700; }
+        .prose-custom ul > li::before { 
+            content: '•'; 
+            position: absolute; 
+            left: 0; 
+            top: 0px; 
+            color: #FFFFFF; 
+            font-size: 1.25rem;
+        }
         .tab-btn { background-color: rgba(255,255,255,0.1); border: 1px solid transparent; }
         .tab-btn.active { background-color: #7c0a0a; color: white; border-color: rgba(255,255,255,0.3); }
     </style>
@@ -164,7 +171,7 @@
     <script>
         const scenarios = [
             {
-                title: "Multi-Generational Leadership",
+                title: "Multigenerational Leadership",
                 challenge: `<p>An emergency management organization with a wide age range is struggling with technology integration and knowledge transfer between generations.</p>`,
                 focus: `<p>Help leaders from different generations develop mutual understanding and collaborative approaches.</p>`,
                 edge: `<ul><li>Moving from generational frustration to intergenerational learning.</li></ul>`,
@@ -174,7 +181,7 @@
                     { text: "Have senior leaders mentor junior staff on the 'right way' to handle institutional knowledge.", isCorrect: false }
                 ],
                 feedback: {
-                    correct: "<p><strong>Correct.</strong> This is a coaching approach. By facilitating a dialogue, you are not providing the answer but helping the leaders expand their own thinking and perspective-taking capacity. This builds a sustainable, collaborative culture rather than reinforcing a one-way transfer of knowledge.</p>",
+                    correct: "<p><strong>Correct.</strong> This is a coaching approach. By facilitating a dialogue, you are not providing the answer but helping the leaders expand their own thinking and perspective taking capacity. This builds a sustainable, collaborative culture rather than reinforcing a one way transfer of knowledge.</p>",
                     incorrect: "<p><strong>Not quite.</strong> This describes mentoring, not coaching. While mentoring has value, it focuses on knowledge transfer from an expert. The core challenge here is a lack of mutual understanding, which requires a coaching approach to help both groups expand their perspectives and co-create a solution.</p>"
                 },
                 resources: `
@@ -192,14 +199,14 @@
                 title: "Crisis Leadership & Political Pressure",
                 challenge: `<p>Emergency management leaders are experiencing political interference that is affecting their operational decisions during a crisis.</p>`,
                 focus: `<p>Develop the organization's capacity to maintain professional standards while navigating complex political dynamics.</p>`,
-                edge: `<ul><li>Expanding from a purely operational focus to a political-operational integration.</li></ul>`,
+                edge: `<ul><li>Expanding from a purely operational focus to a political and operational integration.</li></ul>`,
                 decisionPrompt: "What is the most effective transformational coaching strategy for the leadership team?",
                 options: [
                     { text: "Coach the team to explore the underlying system dynamics of the political pressure and develop adaptive strategies.", isCorrect: true },
                     { text: "Provide performance coaching on specific communication techniques for speaking with politicians.", isCorrect: false }
                 ],
                 feedback: {
-                    correct: "<p><strong>Correct.</strong> This is a transformational coaching approach. It focuses on expanding the team's thinking capacity to see the larger system, understand the political dynamics as part of that system, and develop adaptive—not just scripted—responses. This builds long-term capability for navigating complexity.</p>",
+                    correct: "<p><strong>Correct.</strong> This is a transformational coaching approach. It focuses on expanding the team's thinking capacity to see the larger system, understand the political dynamics as part of that system, and develop adaptive—not just scripted—responses. This builds long term capability for navigating complexity.</p>",
                     incorrect: "<p><strong>This is performance coaching, not transformational coaching.</strong> While improved communication skills are useful (horizontal development), this approach only addresses a symptom. It doesn't expand the leaders' fundamental ability to understand and navigate the complex political system itself, which is the core of the developmental need.</p>"
                 },
                 resources: `
@@ -224,8 +231,8 @@
                     { text: "Ask questions that help the leaders discover for themselves the systemic barriers and shared benefits of true collaboration.", isCorrect: true }
                 ],
                 feedback: {
-                    correct: "<p><strong>Correct.</strong> This is a coaching approach. It facilitates discovery and helps the leaders expand their own systems awareness. By helping them see the barriers and benefits themselves, you generate genuine buy-in and a shift in mindset, which is essential for lasting cultural change.</p>",
-                    incorrect: "<p><strong>This is a directive, not a coaching approach.</strong> Mandating protocols is a top-down, compliance-based solution that doesn't address the underlying competitive mindset. It may force behavioral change but is unlikely to create the deep, cultural shift towards genuine collaboration that transformational coaching aims to achieve.</p>"
+                    correct: "<p><strong>Correct.</strong> This is a coaching approach. It facilitates discovery and helps the leaders expand their own systems awareness. By helping them see the barriers and benefits themselves, you generate genuine buy in and a shift in mindset, which is essential for lasting cultural change.</p>",
+                    incorrect: "<p><strong>This is a directive, not a coaching approach.</strong> Mandating protocols is a top down, compliance based solution that doesn't address the underlying competitive mindset. It may force behavioral change but is unlikely to create the deep, cultural shift towards genuine collaboration that transformational coaching aims to achieve.</p>"
                 },
                 resources: `
                     <h4>Framework: HSD Adaptive Action Cycle</h4>
